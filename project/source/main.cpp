@@ -41,7 +41,7 @@ User loginScreenTwo(Database& libData);
 //Output/Return: if the user was found in the database, the function will return true if not it will return false
 bool verifyUserID(Database libData, string userID);
 
-void printMainMenu();
+void printMainMenu(User name);
 
 void checkForCheckedOutBooks(Database libData, User& name);
 
