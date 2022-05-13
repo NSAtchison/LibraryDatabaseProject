@@ -9,9 +9,6 @@ using namespace std;
 
 
 class Administrator : public User {
-    private:
-        vector<Book> checkedOut;
-
     public:
         //Constructor
         Administrator(string name, string pass);

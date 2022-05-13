@@ -9,6 +9,8 @@ CheckedBook::CheckedBook(string name, Book bk) : Book(bk) {
     userID = name;
 }
 
+string CheckedBook::getUserID() { return userID; }
+
 ostream& operator<<(ostream& out, CheckedBook& otherBook) {
     out << otherBook.userID << " " << otherBook.getTitle()
                             << " " << otherBook.getAuthor()

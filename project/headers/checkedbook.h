@@ -14,6 +14,7 @@ class CheckedBook : public Book {
         //Constructor
         CheckedBook(string name, Book bk);
 
+        string getUserID();
         friend ostream& operator<<(ostream& out, CheckedBook& otherBook);
 };
 

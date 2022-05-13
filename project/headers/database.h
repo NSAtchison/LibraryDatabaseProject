@@ -30,6 +30,7 @@ class Database {
         vector<CheckedBook> getCheckedBooks();
         Administrator searchAdminList(string id);
         RegisteredUser searchUserList(string id);
+        void addUser(RegisteredUser name);
 
     private:
         void findAdmins();

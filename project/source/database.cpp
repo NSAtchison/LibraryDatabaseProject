@@ -145,3 +145,7 @@ RegisteredUser Database::searchUserList(string id) {
     RegisteredUser holdVar("fill", "fill");
     return holdVar;
 }
+
+void Database::addUser(RegisteredUser name) {
+    RegisteredUserList.push_back(name);
+}

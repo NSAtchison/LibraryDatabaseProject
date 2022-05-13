@@ -1,6 +1,9 @@
 #ifndef USER_H
 #define USER_H
 #include <iostream>
+#include <vector>
+#include "..\headers\book.h"
+#include "..\headers\checkedbook.h"
 using namespace std;
 
 
@@ -10,6 +13,7 @@ class User {
         string userID;
         string password;
         string userStatus;
+        vector<CheckedBook> checkedOut;
 
     public:
         //Default Constructor
@@ -20,6 +24,8 @@ class User {
 
         //Variable Constructor
         User(string id, string pass, string status);
+
+        void gatherBook(CheckedBook tempBook);
 
         // //Allows user to checkout a book from the database
         // //Input: N/A

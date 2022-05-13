@@ -9,9 +9,6 @@ using namespace std;
 
 
 class RegisteredUser : public User {
-    private:
-        vector<Book> checkedOut;
-
     public:
         //Constructor
         RegisteredUser(string id, string pass);

@@ -1,5 +1,8 @@
 #include "..\headers\user.h"
+#include "..\headers\book.h"
+#include "..\headers\checkedbook.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 User::User() {
@@ -18,6 +21,10 @@ User::User(string id, string pass, string status) {
     userID = id;
     password = pass;
     userStatus = status;
+}
+
+void User::gatherBook(CheckedBook tempBook) {
+    checkedOut.push_back(tempBook);
 }
 
 // void User::checkOutBook() {
