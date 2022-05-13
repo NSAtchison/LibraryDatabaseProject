@@ -29,9 +29,7 @@ class RegisteredUser : public User {
         //Allows registered user to view their profile
         //Input: N/A
         //Output/Return: Information about the registered user's profile will be output to console
-        void viewProfile();
-
-        friend ostream& operator<<(ostream& out, RegisteredUser& otherUser);
+        void viewProfile();        
 };
 
 #endif

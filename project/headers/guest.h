@@ -14,7 +14,7 @@ class Guest : public User {
         //Method that allows a guest user to create a registered account
         //Input: N/A
         //Output: A registered user is created and added to list of registered users in database
-        void registerAccount();
+        RegisteredUser registerAccount();
 };
 
 #endif

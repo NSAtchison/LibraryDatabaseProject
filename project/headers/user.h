@@ -13,6 +13,9 @@ class User {
 
     public:
         //Default Constructor
+        User();
+
+        //Variable Constructor 1
         User(string status);
 
         //Variable Constructor
@@ -32,6 +35,11 @@ class User {
         // //Input: N/A
         // //Output/Return: Information about the user's profile will be output to console
         // virtual void viewProfile();
+
+        string getID();
+        string getPass();
+        string getStatus();
+        friend ostream& operator<<(ostream& out, User& otherUser);
 };
 
 #endif

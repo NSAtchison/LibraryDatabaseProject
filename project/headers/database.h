@@ -24,6 +24,12 @@ class Database {
         void printUsers();
         void printBooks();
         void printCheckedOut();
+        vector<Administrator> getAdmins();
+        vector<RegisteredUser> getUsers();
+        vector<Book> getBooks();
+        vector<CheckedBook> getCheckedBooks();
+        Administrator searchAdminList(string id);
+        RegisteredUser searchUserList(string id);
 
     private:
         void findAdmins();

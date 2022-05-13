@@ -2,6 +2,12 @@
 #include <iostream>
 using namespace std;
 
+User::User() {
+    userID = "N/A";
+    password = "N/A";
+    userStatus = "N/A";
+}
+
 User::User(string status) {
     userID = "N/A";
     password = "N/A";
@@ -11,7 +17,7 @@ User::User(string status) {
 User::User(string id, string pass, string status) {
     userID = id;
     password = pass;
-    status = userStatus;
+    userStatus = status;
 }
 
 // void User::checkOutBook() {
@@ -25,3 +31,12 @@ User::User(string id, string pass, string status) {
 // void User::viewProfile() {
 //     cout << "You do not have a profile to view, please register an account to view a profile";
 // }
+
+string User::getID() { return userID; }
+string User::getPass() { return password; }
+string User::getStatus() { return userStatus; }
+
+ostream& operator<<(ostream& out, User& otherAdmin) {
+    out << otherAdmin.getID() << " " << otherAdmin.getPass() << " " << otherAdmin.getStatus() << endl;
+    return out;
+}

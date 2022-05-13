@@ -24,8 +24,3 @@ RegisteredUser::RegisteredUser(string id, string pass) : User(id, pass, "Registe
 // //Input: N/A
 // //Output/Return: Information about the registered user's profile will be output to console
 // void RegisteredUser::viewProfile();
-
-ostream& operator<<(ostream& out, RegisteredUser& otherUser) {
-    out << otherUser.userID << " " << otherUser.password << endl;
-    return out;
-}

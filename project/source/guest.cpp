@@ -11,7 +11,7 @@ Guest::Guest() : User("Guest") {}
 //Method that allows a guest user to create a registered account
 //Input: N/A
 //Output: A registered user is created and added to list of registered users in database
-RegisteredUser registerAccount() {
+RegisteredUser Guest::registerAccount() {
     string tempID, tempPass, confPass;
     cout << "_______________________________________________" << endl;
     cout << "| Thank you for deciding to Register with us! |" << endl;

@@ -34,7 +34,3 @@ Administrator::Administrator(string name, string pass) : User(name, pass, "Admin
 // //Output/Return: oldBook is removed to the database's list of books
 // void removeBook(Book oldBook);
 
-ostream& operator<<(ostream& out, Administrator& otherAdmin) {
-    out << otherAdmin.userID << " " << otherAdmin.password << endl;
-    return out;
-}

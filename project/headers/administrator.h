@@ -41,8 +41,6 @@ class Administrator : public User {
         //Output/Return: oldBook is removed to the database's list of books
         void removeBook(Book oldBook);
 
-        //Overload Stream Insertion
-        friend ostream& operator<<(ostream& out, Administrator& otherAdmin);
 };
 
 #endif

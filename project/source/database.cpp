@@ -120,3 +120,28 @@ void Database::printCheckedOut() {
     }
     cout << endl;
 }
+
+vector<Administrator> Database::getAdmins() { return adminList; }
+vector<RegisteredUser> Database::getUsers() { return RegisteredUserList; }
+vector<Book> Database::getBooks() { return books; }
+vector<CheckedBook> Database::getCheckedBooks() { return checkedOutBooks; }
+
+Administrator Database::searchAdminList(string id) {
+    for(int i = 0; i < adminList.size(); i++) {
+        if(adminList[i].getID() == id) {
+            return adminList[i];
+        }
+    }
+    Administrator holdVar("fill", "fill");
+    return holdVar;
+}
+
+RegisteredUser Database::searchUserList(string id) {
+    for(int i = 0; i < adminList.size(); i++) {
+        if(RegisteredUserList[i].getID() == id) {
+            return RegisteredUserList[i];
+        }
+    }
+    RegisteredUser holdVar("fill", "fill");
+    return holdVar;
+}
