@@ -1,5 +1,5 @@
-#include "..\headers\book.h"
-#include "..\headers\checkedbook.h"
+#include "book.h"
+#include "checkedbook.h"
 #include <iostream>
 using namespace std;
 

@@ -2,8 +2,9 @@
 #define USER_H
 #include <iostream>
 #include <vector>
-#include "..\headers\book.h"
-#include "..\headers\checkedbook.h"
+#include "book.h"
+#include "checkedbook.h"
+
 using namespace std;
 
 
@@ -27,10 +28,10 @@ class User {
 
         void gatherBook(CheckedBook tempBook);
 
-        // //Allows user to checkout a book from the database
-        // //Input: N/A
-        // //Output/Return: Book object is updated to indicate book is checked out, book added to subclass checkout vector
-        // virtual void checkOutBook();
+        //Allows user to checkout a book from the database
+        //Input: N/A
+        //Output/Return: Book object is updated to indicate book is checked out, book added to subclass checkout vector
+        void checkOutBook(Book currBook);
         
         // //Allows user to return a checked out book to the database
         // //Input: N/A

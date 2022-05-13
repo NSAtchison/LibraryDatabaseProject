@@ -1,6 +1,6 @@
 #ifndef GUEST_H
 #define GUEST_H
-#include "..\headers\user.h"
+#include "user.h"
 #include <iostream>
 using namespace std;
 

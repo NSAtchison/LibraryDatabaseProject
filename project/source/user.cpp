@@ -1,6 +1,6 @@
-#include "..\headers\user.h"
-#include "..\headers\book.h"
-#include "..\headers\checkedbook.h"
+#include "user.h"
+#include "book.h"
+#include "checkedbook.h"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -27,9 +27,10 @@ void User::gatherBook(CheckedBook tempBook) {
     checkedOut.push_back(tempBook);
 }
 
-// void User::checkOutBook() {
-//     cout << "You do not have access to checking out a book, please register in order to do so" << endl;
-// }
+void User::checkOutBook(Book currBook) {
+    CheckedBook newBook(userID, currBook);
+    checkedOut.push_back(newBook);
+}
 
 // void User::returnBook() {
 //     cout << "You can not return a book, please register in order to do so" << endl;

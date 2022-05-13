@@ -33,6 +33,8 @@ class Book {
         //Output/Return: numCopies and numAvailable increase by 1
         void increaseNumCopies();
 
+        int printInfo();
+
         //Getters
         string getTitle();
         string getAuthor();

@@ -1,6 +1,6 @@
-#include "..\headers\user.h"
-#include "..\headers\registereduser.h"
-#include "..\headers\guest.h"
+#include "user.h"
+#include "registereduser.h"
+#include "guest.h"
 #include <iostream>
 using namespace std;
 

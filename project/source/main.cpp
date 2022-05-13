@@ -5,13 +5,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "..\headers\administrator.h"
-#include "..\headers\book.h"
-#include "..\headers\checkedbook.h"
-#include "..\headers\database.h"
-#include "..\headers\guest.h"
-#include "..\headers\registereduser.h"
-#include "..\headers\user.h"
+#include <algorithm>
+#include "user.h"
+#include "administrator.h"
+#include "book.h"
+#include "checkedbook.h"
+#include "database.h"
+#include "guest.h"
+#include "registereduser.h"
 using namespace std;
 
 void runSystem(Database& libData);
@@ -45,15 +46,19 @@ void printMainMenu(User name);
 
 void checkForCheckedOutBooks(Database libData, User& name);
 
+Book searchForBook(Database libData, string title);
+
 
 
 
 int main() {
     Database libDatabase;
+    runSystem(libDatabase);
 }
 
 void runSystem(Database& libData) {
     bool hasExited = false;
+    int userSelection;
     User currUser = loginToDatabase(libData);
     if(currUser.getStatus() == "N/A") {
         hasExited = true;
@@ -61,6 +66,54 @@ void runSystem(Database& libData) {
     checkForCheckedOutBooks(libData, currUser);
     while(hasExited == false) {
         printMainMenu(currUser);
+        cin >> userSelection;
+        if(userSelection == 1) { //Search for Book
+            string bookTitle;
+            cout << "________________________________" << endl;
+            cout << "|        Book Search           |" << endl;
+            cout << "|------------------------------|" << endl;
+            cout << "|What is the title of the book?|" << endl; 
+            cout << "| "; cin.ignore(); getline(cin, bookTitle); //Grab title of desired book
+            transform(bookTitle.begin(), bookTitle.end(), bookTitle.begin(), ::tolower); //Make title lowercase for comparison
+            Book currBook = searchForBook(libData, bookTitle); //Check for book in the library
+            if(currBook.getAuthor() == "None") { //Check if book was not in the library
+                cout << "Book does not exist in our library. We are sorry for the inconvenience" << endl;
+                cout << "               We will now return you to the Main Menu.               " << endl;
+            } else { //Book was in the library and found
+                int userChoice = currBook.printInfo(); 
+                if(userChoice == 1 && currUser.getStatus() == "Guest") { //User does not have access to checking out due to being a Guest
+                    cout << "As a guest, you do not have access to checking out material." << endl;
+                    cout << "Please reopen the system and create an account if you wish" << endl;
+                    cout << "            Check out material in the library.            " << endl;
+                } else if (userChoice == 1) { //Checking out the book
+                    currUser.checkOutBook(currBook);
+                    CheckedBook newBook(currUser.getID(), currBook);
+                    libData.addCheckedBook(newBook);
+                    //NOTE NOTE NOTE
+                    //NOTE NOTE NOTE
+                    //NOTE NOTE NOTE
+                    //NOTE NOTE NOTE
+                    //NOTE NOTE NOTE
+                    //finish update book info function so that we can update that a book has 1 less available copy
+                }
+            }
+        } else if (userSelection == 2) { //Search through Catalog
+
+        } else if (userSelection == 3) { //Return a Book
+            
+        } else if (userSelection == 4) { //View Profile
+            
+        } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database
+            
+        } else if (userSelection == 5 && currUser.getStatus() != "Administrator") { //Logout (if not an Admin)
+            hasExited = true;
+        } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database
+            
+        } else if (userSelection == 7 && currUser.getStatus() == "Administrator") { //Logout (if Admin)
+            hasExited = true;
+        } else { //Invalid Input
+
+        }
     }
 }
 
@@ -195,4 +248,18 @@ void checkForCheckedOutBooks(Database libData, User& name) {
             name.gatherBook(books[i]);
         }
     }
+}
+
+Book searchForBook(Database libData, string title) {
+    vector<Book> bookList = libData.getBooks();
+    for(int i = 0; i < bookList.size(); i++) {
+        string currBookTitle = bookList[i].getTitle();
+        replace(currBookTitle.begin(), currBookTitle.end(), '_', ' ');
+        transform(currBookTitle.begin(), currBookTitle.end(), currBookTitle.begin(), ::tolower);
+        if(title == currBookTitle) {
+            return bookList[i];
+        }
+    }
+    Book fin;
+    return fin;
 }

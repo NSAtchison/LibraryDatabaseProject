@@ -1,5 +1,5 @@
 #include <iostream>
-#include "..\headers\book.h"
+#include "book.h"
 using namespace std;
 
 //Default Constructor
@@ -66,6 +66,37 @@ void Book::setTitle(string name) { title = name; }
 void Book::setAuthor(string name) { author = name; }
 void Book::setGenre(string name) { genre = name; }
 void Book::setNumPages(int num) { numPages = num; }
+
+int Book::printInfo() {
+    int userSelection;
+    cout << "______________________" << endl;
+    cout << "|  Book Information  |" << endl;
+    cout << "|--------------------|" << endl;
+    cout << " Book Title: " << title << endl;
+    cout << " Author: " << author << endl;
+    cout << " Genre: " << genre << endl;
+    cout << " Number of Pages: " << numPages << endl;
+    cout << " Number of Available Copies: " << numAvailable << "/" << numCopies << endl;
+    cout << " If you want to read more about this book, you can find additional information at:" << endl;
+    cout << " " << pageLink << endl << endl;
+    cout << "______________________________" << endl;
+    cout << "| What would you like to do? |" << endl;
+    cout << "|----------------------------|" << endl;
+    cout << "| [1] Checkout the Book      |" << endl;
+    cout << "| [2] Return to Main Menu    |" << endl;
+    cout << "|____________________________|" << endl;
+    cout << "Selection: "; cin >> userSelection;
+    while(userSelection != 1 && userSelection != 2) {
+        cout << "Invalid Selection please reenter selection" << endl;
+        cout << "Selection: "; cin >> userSelection;
+    }
+    if(userSelection == 1 && numAvailable == 0) {
+        cout << "Sorry, this book has no available copies. Please return at a later date." << endl;
+        cout << "               We will now return you to the main menu.                 " << endl;
+        return 2;
+    }
+    return userSelection;
+}
 
 ostream& operator<<(ostream& out, Book& otherBook) {
     out << otherBook.getTitle()

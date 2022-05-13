@@ -1,10 +1,10 @@
 #include <iostream>
-#include "..\headers\book.h"
-#include "..\headers\administrator.h"
-#include "..\headers\registereduser.h"
-#include "..\headers\checkedbook.h"
-#include "..\headers\database.h"
-#include "..\headers\administrator.h"
+#include "book.h"
+#include "administrator.h"
+#include "registereduser.h"
+#include "checkedbook.h"
+#include "database.h"
+#include "administrator.h"
 #include <vector>
 #include <fstream>
 using namespace std;
@@ -148,4 +148,12 @@ RegisteredUser Database::searchUserList(string id) {
 
 void Database::addUser(RegisteredUser name) {
     RegisteredUserList.push_back(name);
+}
+
+void Database::addCheckedBook(CheckedBook name) {
+    checkedOutBooks.push_back(name);
+}
+
+void Database::updateBookInfo(int num) {
+    
 }

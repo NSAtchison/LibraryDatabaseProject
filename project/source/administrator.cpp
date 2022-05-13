@@ -1,23 +1,17 @@
 #include <iostream>
 #include <vector>
-#include "..\headers\book.h"
-#include "..\headers\user.h"
-#include "..\headers\administrator.h"
+#include "book.h"
+#include "user.h"
+#include "administrator.h"
 using namespace std;
 
 
 //Constructor
 Administrator::Administrator(string name, string pass) : User(name, pass, "Administrator") {}
 
-// //Allows administrator to checkout a book from the database
-// //Input: N/A
-// //Output/Return: Book object is updated to indicate book is checked out, book added to registered user's checkedOut vector
-// void checkOutBook();
 
-// //Allows administrator to return a checked out book to the database
-// //Input: N/A
-// //Output/Return: Book object is updated to indicate book is returned, book removed from registered user's checkedOut vector
-// void returnBook();
+
+
 
 // //Allows administrator to view their profile
 // //Input: N/A

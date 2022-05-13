@@ -31,6 +31,8 @@ class Database {
         Administrator searchAdminList(string id);
         RegisteredUser searchUserList(string id);
         void addUser(RegisteredUser name);
+        void addCheckedBook(CheckedBook name);
+        void updateBookInfo(int num);
 
     private:
         void findAdmins();
