@@ -65,9 +65,27 @@ Book User::returnBook() {
     return retBook;
 }
 
-// void User::viewProfile() {
-//     cout << "You do not have a profile to view, please register an account to view a profile";
-// }
+void User::viewProfile() {
+    if(userStatus == "Guest") {
+        cout << "You do not have a profile to view, please register an account to view a profile" << endl;
+    } else {
+        string userInput;
+        cout << "________________" << endl;
+        cout << "| User Profile |" << endl;
+        cout << "|--------------|" << endl;
+        cout << " Username: " << userID << endl;
+        cout << " Password: " << password << endl;
+        cout << " Profile Type: " << userStatus << endl;
+        cout << " Currently Checked Out Books" << endl;
+        cout << " ---------------------------" << endl;
+        for(int i = 0; i < checkedOut.size(); i++) {
+            string currTitle = checkedOut[i].getTitle();
+            replace(currTitle.begin(), currTitle.end(), '_', ' ');
+            cout << "[" << (i+1) << "] " << currTitle << endl;
+        }
+        cout << endl << "Please Enter \"1\" to return to the Main Menu "; cin >> userInput;
+    }
+}
 
 string User::getID() { return userID; }
 string User::getPass() { return password; }

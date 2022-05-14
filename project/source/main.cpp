@@ -17,7 +17,6 @@ using namespace std;
 
 void runSystem(Database& libData);
 
-
 //This function will bring up a login screen in console that will give three options: Continue as Guest, Login or Register
 //Input: Database& libData: The library database, brought in so that it can be updated and accessed as necessary
 //Output/return: If the user continues as a guest, Guest object is created but nothing changed
@@ -107,7 +106,7 @@ void runSystem(Database& libData) {
                 }
             }
         } else if (userSelection == 4) { //View Profile
-            
+            currUser.viewProfile();
         } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database (As Admin)
             
         } else if (userSelection == 5 && currUser.getStatus() != "Administrator") { //Logout (if not an Admin)

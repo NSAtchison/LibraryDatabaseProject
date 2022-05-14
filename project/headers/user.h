@@ -39,10 +39,10 @@ class User {
         //Output/Return: Book object is updated to indicate book is returned, book removed from subclass checkout vector
         Book returnBook();
 
-        // //Allows user to view their profile
-        // //Input: N/A
-        // //Output/Return: Information about the user's profile will be output to console
-        // virtual void viewProfile();
+        //Allows user to view their profile
+        //Input: N/A
+        //Output/Return: Information about the user's profile will be output to console
+        void viewProfile();
 
         string getID();
         string getPass();
