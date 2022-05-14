@@ -31,7 +31,9 @@ class Book {
         //Function for increasing the number of copies available in the database
         //Input: N/A
         //Output/Return: numCopies and numAvailable increase by 1
-        void increaseNumCopies();
+        void updateNumCopies(int num);
+
+        void updateNumAvailable(int num);
 
         int printInfo();
 

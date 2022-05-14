@@ -47,10 +47,29 @@ Book::Book(const Book& copy) {
 //Function for increasing the number of copies available in the database
 //Input: N/A
 //Output/Return: numCopies and numAvailable increase by 1
-void Book::increaseNumCopies() {
-    numCopies++;
-    numAvailable++;
+void Book::updateNumCopies(int num) {
+    if(num == 1) { //Identical Book was added to Library
+        numCopies++;
+        numAvailable++;
+    } else { //Identical Book was removed from Library
+        if(numAvailable > 0) { //Check if there is a copy available in the library
+            numCopies--;
+            numAvailable--;
+        } else {
+            cout << "There are no copies in the library currently. As such, it can not be removed." << endl;
+        }
+    }
 }
+
+void Book::updateNumAvailable(int num) {
+    if(num == 1) { //Book is checked out
+        numAvailable--;
+    } else { //Book is returned
+        numAvailable++;
+    }
+}
+
+
 
 //Getters
 string Book::getTitle() { return title; }

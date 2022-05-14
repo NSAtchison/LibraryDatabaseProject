@@ -154,6 +154,43 @@ void Database::addCheckedBook(CheckedBook name) {
     checkedOutBooks.push_back(name);
 }
 
-void Database::updateBookInfo(int num) {
-    
+void Database::updateBookInfo(int num, Book name) {
+    if(num == 1) { //Book was checked out
+        string bookName = name.getTitle();
+        for(int i = 0; i < books.size(); i++) { //Runs through every book in library (Or until identical is found)
+            if(books[i].getTitle() == bookName) { //Check if book input is the same as current book we are looking at in the library
+                books[i].updateNumAvailable(1);
+                break;
+            }
+        }
+    } else if (num == 2) { //Book was Returned
+        string bookName = name.getTitle();
+        for(int i = 0; i < books.size(); i++) { //Runs through every book in library (Or until identical is found)
+            if(books[i].getTitle() == bookName) { //Check if book input is the same as current book we are looking at in the library
+                books[i].updateNumAvailable(2);
+                break;
+            }
+        }
+    } else if (num == 3) { //Book was added to library
+        string bookName = name.getTitle();
+        bool isIdentical = false;
+        for(int i = 0; i < books.size(); i++) { //Runs through every book in library (Or until identical is found)
+            if(books[i].getTitle() == bookName) { //Check if book input is the same as current book we are looking at in the library
+                books[i].updateNumCopies(1);
+                isIdentical = true;
+                break;
+            }
+        }
+        if(isIdentical == false) { //Check if this is a brand new book to the library
+            books.push_back(name);
+        }
+    } else if (num == 4) { //Book was removed from library
+        string bookName = name.getTitle();
+        for(int i = 0; i < books.size(); i++) { //Runs through every book in library until identical is found
+            if(books[i].getTitle() == bookName) { //Check if current book is identical of the input book
+                books[i].updateNumCopies(2);
+                break;
+            }
+        }
+    }
 }

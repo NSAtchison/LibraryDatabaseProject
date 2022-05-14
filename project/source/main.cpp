@@ -89,12 +89,7 @@ void runSystem(Database& libData) {
                     currUser.checkOutBook(currBook);
                     CheckedBook newBook(currUser.getID(), currBook);
                     libData.addCheckedBook(newBook);
-                    //NOTE NOTE NOTE
-                    //NOTE NOTE NOTE
-                    //NOTE NOTE NOTE
-                    //NOTE NOTE NOTE
-                    //NOTE NOTE NOTE
-                    //finish update book info function so that we can update that a book has 1 less available copy
+                    libData.updateBookInfo(1, currBook);
                 }
             }
         } else if (userSelection == 2) { //Search through Catalog
