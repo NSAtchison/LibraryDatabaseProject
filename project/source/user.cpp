@@ -3,6 +3,8 @@
 #include "checkedbook.h"
 #include <iostream>
 #include <vector>
+#include <string>
+#include <algorithm> //Used for replace function src: https://www.cplusplus.com/reference/algorithm/replace/
 using namespace std;
 
 User::User() {
@@ -32,9 +34,36 @@ void User::checkOutBook(Book currBook) {
     checkedOut.push_back(newBook);
 }
 
-// void User::returnBook() {
-//     cout << "You can not return a book, please register in order to do so" << endl;
-// }
+
+
+Book User::returnBook() {
+    int userSelection;
+    if(checkedOut.empty() == true) { //See if they currently have any checked out books
+        cout << "You do not currently have any checked out books to return." << endl;
+    } else { //They have checked out books
+        cout << "________________________________" << endl;
+        cout << "| Which of the following books |" << endl;
+        cout << "|   Would you like to return   |" << endl;
+        cout << "|------------------------------|" << endl;
+        for(int i = 0; i < checkedOut.size(); i++) { //Prints all the titles of the books they have checked out
+            string currBookTitle = checkedOut[i].getTitle();
+            replace(currBookTitle.begin(), currBookTitle.end(), '_', ' ');
+            cout << "[" << (i+1) << "] " << currBookTitle << endl;
+        }
+        cout << "[" << (checkedOut.size() + 1) << "] Return to Main Menu" << endl;
+        cout << "Selection: "; cin >> userSelection;
+        while((userSelection < 1) || (userSelection > (checkedOut.size() + 1))) { //Checks if they gave a valid input
+            cout << "Invalid Selection. Please enter again: "; cin >> userSelection;
+        }
+        if(userSelection != (checkedOut.size() + 1)) { //Check if the decided to return a book
+            Book retBook(checkedOut[userSelection - 1].getTitle(), checkedOut[userSelection - 1].getAuthor(), checkedOut[userSelection - 1].getGenre(), checkedOut[userSelection - 1].getLink(), checkedOut[userSelection - 1].getNumPages());
+            checkedOut.erase(checkedOut.begin() + (userSelection - 1));
+            return retBook;
+        }
+    }
+    Book retBook;
+    return retBook;
+}
 
 // void User::viewProfile() {
 //     cout << "You do not have a profile to view, please register an account to view a profile";

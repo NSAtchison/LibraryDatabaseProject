@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <algorithm> //Used for replace function src: https://www.cplusplus.com/reference/algorithm/replace/
 #include "user.h"
 #include "administrator.h"
 #include "book.h"
@@ -89,20 +89,30 @@ void runSystem(Database& libData) {
                     currUser.checkOutBook(currBook);
                     CheckedBook newBook(currUser.getID(), currBook);
                     libData.addCheckedBook(newBook);
-                    libData.updateBookInfo(1, currBook);
+                    libData.updateBookInfo(1, currBook, currUser);
                 }
             }
         } else if (userSelection == 2) { //Search through Catalog
 
         } else if (userSelection == 3) { //Return a Book
-            
+            if(currUser.getStatus() == "Guest") {
+                cout << "As a Guest, you do not have access to checking out books." << endl;
+                cout << "          Thus, you have not need to return any.         " << endl;
+            } else {
+               Book retBook = currUser.returnBook();
+                if(retBook.getTitle() == "None") {
+                    cout << "You have decided not to return a book. Returning to Main Menu." << endl;
+                } else {
+                    libData.updateBookInfo(2, retBook, currUser);
+                }
+            }
         } else if (userSelection == 4) { //View Profile
             
-        } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database
+        } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database (As Admin)
             
         } else if (userSelection == 5 && currUser.getStatus() != "Administrator") { //Logout (if not an Admin)
             hasExited = true;
-        } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database
+        } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database (As Admin)
             
         } else if (userSelection == 7 && currUser.getStatus() == "Administrator") { //Logout (if Admin)
             hasExited = true;

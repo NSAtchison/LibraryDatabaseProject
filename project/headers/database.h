@@ -32,7 +32,7 @@ class Database {
         RegisteredUser searchUserList(string id);
         void addUser(RegisteredUser name);
         void addCheckedBook(CheckedBook name);
-        void updateBookInfo(int num, Book name);
+        void updateBookInfo(int num, Book name, User id);
 
     private:
         void findAdmins();

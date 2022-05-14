@@ -154,7 +154,7 @@ void Database::addCheckedBook(CheckedBook name) {
     checkedOutBooks.push_back(name);
 }
 
-void Database::updateBookInfo(int num, Book name) {
+void Database::updateBookInfo(int num, Book name, User id) {
     if(num == 1) { //Book was checked out
         string bookName = name.getTitle();
         for(int i = 0; i < books.size(); i++) { //Runs through every book in library (Or until identical is found)
@@ -165,9 +165,16 @@ void Database::updateBookInfo(int num, Book name) {
         }
     } else if (num == 2) { //Book was Returned
         string bookName = name.getTitle();
+        string userName = id.getID();
         for(int i = 0; i < books.size(); i++) { //Runs through every book in library (Or until identical is found)
             if(books[i].getTitle() == bookName) { //Check if book input is the same as current book we are looking at in the library
                 books[i].updateNumAvailable(2);
+                break;
+            }
+        }
+        for(int i = 0; i < checkedOutBooks.size(); i++) {
+            if((checkedOutBooks[i].getUserID() == userName) && (checkedOutBooks[i].getTitle() == bookName)) {
+                checkedOutBooks.erase(checkedOutBooks.begin() + i);
                 break;
             }
         }

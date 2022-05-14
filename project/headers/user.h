@@ -2,6 +2,7 @@
 #define USER_H
 #include <iostream>
 #include <vector>
+#include <string>
 #include "book.h"
 #include "checkedbook.h"
 
@@ -33,10 +34,10 @@ class User {
         //Output/Return: Book object is updated to indicate book is checked out, book added to subclass checkout vector
         void checkOutBook(Book currBook);
         
-        // //Allows user to return a checked out book to the database
-        // //Input: N/A
-        // //Output/Return: Book object is updated to indicate book is returned, book removed from subclass checkout vector
-        // virtual void returnBook();
+        //Allows user to return a checked out book to the database
+        //Input: N/A
+        //Output/Return: Book object is updated to indicate book is returned, book removed from subclass checkout vector
+        Book returnBook();
 
         // //Allows user to view their profile
         // //Input: N/A
