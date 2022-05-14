@@ -110,10 +110,18 @@ void runSystem(Database& libData) {
         } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database (As Admin)
             
         } else if (userSelection == 5 && currUser.getStatus() != "Administrator") { //Logout (if not an Admin)
+            cout << "____________________________________" << endl;
+            cout << "|Thank you for coming to NSALibrary|" << endl;
+            cout << "|    We hope you'll return soon!   |" << endl;
+            cout << "|__________________________________|" << endl;
             hasExited = true;
         } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database (As Admin)
             
         } else if (userSelection == 7 && currUser.getStatus() == "Administrator") { //Logout (if Admin)
+            cout << "____________________________________" << endl;
+            cout << "|Thank you for coming to NSALibrary|" << endl;
+            cout << "|    We hope you'll return soon!   |" << endl;
+            cout << "|__________________________________|" << endl;
             hasExited = true;
         } else { //Invalid Input
 
