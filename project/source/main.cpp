@@ -15,7 +15,7 @@
 #include "registereduser.h"
 using namespace std;
 
-void runSystem(Database& libData);
+void runSystem();
 
 //This function will bring up a login screen in console that will give three options: Continue as Guest, Login or Register
 //Input: Database& libData: The library database, brought in so that it can be updated and accessed as necessary
@@ -51,11 +51,11 @@ Book searchForBook(Database libData, string title);
 
 
 int main() {
-    Database libDatabase;
-    runSystem(libDatabase);
+    runSystem();
 }
 
-void runSystem(Database& libData) {
+void runSystem() {
+    Database libData;
     bool hasExited = false;
     int userSelection;
     User currUser = loginToDatabase(libData);
