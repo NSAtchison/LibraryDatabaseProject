@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "book.h"
 #include "checkedbook.h"
 using namespace std;
@@ -89,12 +90,17 @@ void Book::setNumPages(int num) { numPages = num; }
 
 int Book::printInfo() {
     int userSelection;
+    string tempTitle, tempAuthor, tempGenre;
+    tempTitle = title; tempAuthor = author, tempGenre = genre;
+    replace(tempTitle.begin(), tempTitle.end(), '_', ' ');
+    replace(tempAuthor.begin(), tempAuthor.end(), '_', ' ');
+    replace(tempGenre.begin(), tempGenre.end(), '_', ' ');
     cout << "______________________" << endl;
     cout << "|  Book Information  |" << endl;
     cout << "|--------------------|" << endl;
-    cout << " Book Title: " << title << endl;
-    cout << " Author: " << author << endl;
-    cout << " Genre: " << genre << endl;
+    cout << " Book Title: " << tempTitle << endl;
+    cout << " Author: " << tempAuthor << endl;
+    cout << " Genre: " << tempGenre << endl;
     cout << " Number of Pages: " << numPages << endl;
     cout << " Number of Available Copies: " << numAvailable << "/" << numCopies << endl;
     cout << " If you want to read more about this book, you can find additional information at:" << endl;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "book.h"
 #include "user.h"
 #include "administrator.h"
@@ -12,19 +13,26 @@ Administrator::Administrator(string name, string pass) : User(name, pass, "Admin
 
 
 
+Book Administrator::addBook() {
+    string bookTitle, bookAuthor, bookGenre, grLink;
+    int pages;
+    cout << "__________________________________________" << endl;
+    cout << "| Please Input the Following Information |" << endl;
+    cout << "|________________________________________|" << endl;
+    cout << " Title of the Book: "; cin.ignore(); getline(cin, bookTitle);
+    cout << " Author of the Book: "; getline(cin, bookAuthor);
+    cout << " Genre of the Book: "; getline(cin, bookGenre);
+    cout << " Link to Book's GoodReads Page: "; getline(cin, grLink);
+    cout << " Number of Pages in Book: "; cin >> pages;
+    replace(bookTitle.begin(), bookTitle.end(), ' ', '_');
+    replace(bookAuthor.begin(), bookAuthor.end(), ' ', '_');
+    replace(bookGenre.begin(), bookGenre.end(), ' ', '_');
+    Book newBook(bookTitle, bookAuthor, bookGenre, grLink, pages);
+    return newBook;
+}
 
-// //Allows administrator to view their profile
-// //Input: N/A
-// //Output/Return: Information about the registered user's profile will be output to console
-// void viewProfile();
 
-// //Allows administrator to add a new book to the library database
-// //Input: Book newBook: The new book that is being added to the database
-// //Output/Return: newBook is added to the database's list of books
-// void addBook(Book newBook);
-
-// //Allows administrator to add a new book to the library database
-// //Input: Book oldBook: The book that is being removed from the database
-// //Output/Return: oldBook is removed to the database's list of books
-// void removeBook(Book oldBook);
+// Book Administrator::removeBook() {
+    
+// }
 

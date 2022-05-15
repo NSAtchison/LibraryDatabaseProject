@@ -189,6 +189,7 @@ void Database::updateBookInfo(int num, Book name, User id) {
             }
         }
         if(isIdentical == false) { //Check if this is a brand new book to the library
+            name.updateNumCopies(1);
             books.push_back(name);
         }
     } else if (num == 4) { //Book was removed from library
