@@ -47,6 +47,10 @@ void checkForCheckedOutBooks(Database libData, User& name);
 
 Book searchForBook(Database libData, string title);
 
+void bookSearch(Database& libData, User& currUser);
+void bookReturn(Database& libData, User& currUser);
+bool logoutScreen();
+
 
 
 
@@ -67,44 +71,11 @@ void runSystem() {
         printMainMenu(currUser);
         cin >> userSelection;
         if(userSelection == 1) { //Search for Book
-            string bookTitle;
-            cout << "________________________________" << endl;
-            cout << "|        Book Search           |" << endl;
-            cout << "|------------------------------|" << endl;
-            cout << "|What is the title of the book?|" << endl; 
-            cout << "| "; cin.ignore(); getline(cin, bookTitle); //Grab title of desired book
-            transform(bookTitle.begin(), bookTitle.end(), bookTitle.begin(), ::tolower); //Make title lowercase for comparison
-            Book currBook = searchForBook(libData, bookTitle); //Check for book in the library
-            if(currBook.getAuthor() == "None") { //Check if book was not in the library
-                cout << "Book does not exist in our library. We are sorry for the inconvenience" << endl;
-                cout << "               We will now return you to the Main Menu.               " << endl;
-            } else { //Book was in the library and found
-                int userChoice = currBook.printInfo(); 
-                if(userChoice == 1 && currUser.getStatus() == "Guest") { //User does not have access to checking out due to being a Guest
-                    cout << "As a guest, you do not have access to checking out material." << endl;
-                    cout << "Please reopen the system and create an account if you wish" << endl;
-                    cout << "            Check out material in the library.            " << endl;
-                } else if (userChoice == 1) { //Checking out the book
-                    currUser.checkOutBook(currBook);
-                    CheckedBook newBook(currUser.getID(), currBook);
-                    libData.addCheckedBook(newBook);
-                    libData.updateBookInfo(1, currBook, currUser);
-                }
-            }
+            bookSearch(libData, currUser);
         } else if (userSelection == 2) { //Search through Catalog
 
         } else if (userSelection == 3) { //Return a Book
-            if(currUser.getStatus() == "Guest") {
-                cout << "As a Guest, you do not have access to checking out books." << endl;
-                cout << "          Thus, you have not need to return any.         " << endl;
-            } else {
-               Book retBook = currUser.returnBook();
-                if(retBook.getTitle() == "None") {
-                    cout << "You have decided not to return a book. Returning to Main Menu." << endl;
-                } else {
-                    libData.updateBookInfo(2, retBook, currUser);
-                }
-            }
+            bookReturn(libData, currUser);
         } else if (userSelection == 4) { //View Profile
             currUser.viewProfile();
         } else if (userSelection == 5 && currUser.getStatus() == "Administrator") { //Add Book to Database (As Admin)
@@ -112,11 +83,7 @@ void runSystem() {
             Book newBook = tempAdmin.addBook();
             libData.updateBookInfo(3, newBook, currUser);
         } else if (userSelection == 5 && currUser.getStatus() != "Administrator") { //Logout (if not an Admin)
-            cout << "____________________________________" << endl;
-            cout << "|Thank you for coming to NSALibrary|" << endl;
-            cout << "|    We hope you'll return soon!   |" << endl;
-            cout << "|__________________________________|" << endl;
-            hasExited = true;
+            hasExited = logoutScreen();
         } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database (As Admin)
             Administrator tempAdmin(currUser.getID(), currUser.getPass());
             Book newBook = tempAdmin.removeBook(libData.getBooks());
@@ -124,11 +91,7 @@ void runSystem() {
                 libData.updateBookInfo(4, newBook, currUser);
             }
         } else if (userSelection == 7 && currUser.getStatus() == "Administrator") { //Logout (if Admin)
-            cout << "____________________________________" << endl;
-            cout << "|Thank you for coming to NSALibrary|" << endl;
-            cout << "|    We hope you'll return soon!   |" << endl;
-            cout << "|__________________________________|" << endl;
-            hasExited = true;
+            hasExited = logoutScreen();
         } else { //Invalid Input
             cout << "You have given an invalid input. Returning to Main Menu" << endl;
         }
@@ -281,4 +244,53 @@ Book searchForBook(Database libData, string title) {
     }
     Book fin;
     return fin;
+}
+
+void bookSearch(Database& libData, User& currUser) {
+    string bookTitle;
+    cout << "________________________________" << endl;
+    cout << "|        Book Search           |" << endl;
+    cout << "|------------------------------|" << endl;
+    cout << "|What is the title of the book?|" << endl; 
+    cout << "| "; cin.ignore(); getline(cin, bookTitle); //Grab title of desired book
+    transform(bookTitle.begin(), bookTitle.end(), bookTitle.begin(), ::tolower); //Make title lowercase for comparison
+    Book currBook = searchForBook(libData, bookTitle); //Check for book in the library
+    if(currBook.getAuthor() == "None") { //Check if book was not in the library
+        cout << "Book does not exist in our library. We are sorry for the inconvenience" << endl;
+        cout << "               We will now return you to the Main Menu.               " << endl;
+    } else { //Book was in the library and found
+        int userChoice = currBook.printInfo(); 
+        if(userChoice == 1 && currUser.getStatus() == "Guest") { //User does not have access to checking out due to being a Guest
+            cout << "As a guest, you do not have access to checking out material." << endl;
+            cout << "Please reopen the system and create an account if you wish" << endl;
+            cout << "            Check out material in the library.            " << endl;
+        } else if (userChoice == 1) { //Checking out the book
+            currUser.checkOutBook(currBook);
+            CheckedBook newBook(currUser.getID(), currBook);
+            libData.addCheckedBook(newBook);
+            libData.updateBookInfo(1, currBook, currUser);
+        }
+    }
+}
+
+void bookReturn(Database& libData, User& currUser) {
+    if(currUser.getStatus() == "Guest") {
+        cout << "As a Guest, you do not have access to checking out books." << endl;
+        cout << "          Thus, you have not need to return any.         " << endl;
+    } else {
+        Book retBook = currUser.returnBook();
+        if(retBook.getTitle() == "None") {
+            cout << "You have decided not to return a book. Returning to Main Menu." << endl;
+        } else {
+            libData.updateBookInfo(2, retBook, currUser);
+        }
+    }
+}
+
+bool logoutScreen() {
+    cout << "____________________________________" << endl;
+    cout << "|Thank you for coming to NSALibrary|" << endl;
+    cout << "|    We hope you'll return soon!   |" << endl;
+    cout << "|__________________________________|" << endl;
+    return true;
 }
