@@ -20,11 +20,11 @@ RegisteredUser Guest::registerAccount() {
     cout << " What would you like as your UserID: "; cin >> tempID;
     cout << " What would you like as your password: "; cin >> tempPass;
     cout << " Please confirm your password: "; cin >> confPass;
-    while(tempPass != confPass) {
+    while(tempPass != confPass) { //Runs until the user successfully confirms their password
         cout << " Incorrect password please try again: "; cin >> confPass;
     }
     cout << " UserID and Password have been confirmed." << endl;
     cout << "    We will now register your account!   " << endl;
-    RegisteredUser finUser(tempID, tempPass);
+    RegisteredUser finUser(tempID, tempPass); //Creates a user with the user inputted information
     return finUser;
 }

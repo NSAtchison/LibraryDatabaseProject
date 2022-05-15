@@ -44,9 +44,12 @@ class User {
         //Output/Return: Information about the user's profile will be output to console
         void viewProfile();
 
+        //Getter Functions
         string getID();
         string getPass();
         string getStatus();
+
+        //Operator Overload
         friend ostream& operator<<(ostream& out, User& otherUser);
 };
 

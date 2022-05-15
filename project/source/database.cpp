@@ -17,9 +17,9 @@ Database::Database() {
 }
 
 void Database::findAdmins() {
-    fstream inputFile("admin_list.txt", ios::in);
+    fstream inputFile("admin_list.txt", ios::in); //Open file containing list of admins
     string str, adminID, adminPass;
-    while(inputFile >> str) {
+    while(inputFile >> str) { //Runs while there is still input
         adminID = str;
         inputFile >> str;
         adminPass = str;
@@ -30,9 +30,9 @@ void Database::findAdmins() {
 }
 
 void Database::findRegisteredUsers() {
-    fstream inputFile("registered_user_list.txt", ios::in);
+    fstream inputFile("registered_user_list.txt", ios::in); //Open file contatining list of Registered Users
     string str, userID, userPass;
-    while(inputFile >> str) {
+    while(inputFile >> str) { //Runs while there is still input
         userID = str;
         inputFile >> str;
         userPass = str;
@@ -43,10 +43,10 @@ void Database::findRegisteredUsers() {
 }
 
 void Database::findBooks() {
-    fstream inputFile("book_list.txt", ios::in);
+    fstream inputFile("book_list.txt", ios::in); //Open file containing list of all books 
     string str, title, author, genre, link;
     int pages, available, copies;
-    while(inputFile >> str) {
+    while(inputFile >> str) { //Runs while there is still input
         title = str;
         inputFile >> str;
         author = str;
@@ -67,10 +67,10 @@ void Database::findBooks() {
 }
 
 void Database::findcheckedOutBooks() {
-    fstream inputFile("checked_out_list.txt", ios::in);
+    fstream inputFile("checked_out_list.txt", ios::in); //Open file containing list of all currently checked out books
     string str, user, title, author, genre, link;
     int pages, available, copies;
-    while(inputFile >> str) {
+    while(inputFile >> str) { //Runs while there is still input
         user = str;
         inputFile >> str;
         title = str;
@@ -127,30 +127,30 @@ vector<Book> Database::getBooks() { return books; }
 vector<CheckedBook> Database::getCheckedBooks() { return checkedOutBooks; }
 
 Administrator Database::searchAdminList(string id) {
-    for(int i = 0; i < adminList.size(); i++) {
-        if(adminList[i].getID() == id) {
+    for(int i = 0; i < adminList.size(); i++) { //Runs through all admins
+        if(adminList[i].getID() == id) { //Check if input matches id of current admin
             return adminList[i];
         }
     }
-    Administrator holdVar("fill", "fill");
+    Administrator holdVar("fill", "fill"); //If admin is not found in registered user list
     return holdVar;
 }
 
 RegisteredUser Database::searchUserList(string id) {
-    for(int i = 0; i < adminList.size(); i++) {
-        if(RegisteredUserList[i].getID() == id) {
+    for(int i = 0; i < RegisteredUserList.size(); i++) { //Runs therough all Registered Users
+        if(RegisteredUserList[i].getID() == id) { //Check if input matches id of current user
             return RegisteredUserList[i];
         }
     }
-    RegisteredUser holdVar("fill", "fill");
+    RegisteredUser holdVar("fill", "fill"); //If user is not found in registered user list
     return holdVar;
 }
 
-void Database::addUser(RegisteredUser name) {
+void Database::addUser(RegisteredUser name) { //Adds new user to the database
     RegisteredUserList.push_back(name);
 }
 
-void Database::addCheckedBook(CheckedBook name) {
+void Database::addCheckedBook(CheckedBook name) { //Adds a new checked out book to the database
     checkedOutBooks.push_back(name);
 }
 

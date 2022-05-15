@@ -28,13 +28,20 @@ class Book {
         //Copy Constructor
         Book(const Book& copy);
         
-        //Function for increasing the number of copies available in the database
+        //Function for increasing the number of total copies of a book in the database
         //Input: N/A
         //Output/Return: numCopies and numAvailable increase by 1
         void updateNumCopies(int num);
 
+        //Function that updates the number of available copies of a book in the database
+        //Input: N/A
+        //Output/Return: numAvailable increase by 1
         void updateNumAvailable(int num);
 
+        //Function that prints all of the books information
+        //Input: N/A
+        //Output/Return: The books information is printed to console
+        //               An int with value of either 1 or 2 is returned to indicate whether the book is to be checked out
         int printInfo();
 
         //Getters
@@ -52,6 +59,7 @@ class Book {
         void setGenre(string name);
         void setNumPages(int num);
 
+        //Operator Overload
         friend ostream& operator<<(ostream& out, Book& otherBook);
 };
 

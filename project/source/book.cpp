@@ -26,6 +26,7 @@ Book::Book(string name, string writer, string type, string link, int pages) {
     numCopies = 0;
 }
 
+//Variable Constructor 2
 Book::Book(string name, string writer, string type, string link, int pages, int numAvail, int numCop) {
     title = name;
     author = writer;
@@ -36,6 +37,7 @@ Book::Book(string name, string writer, string type, string link, int pages, int 
     numCopies = numCop;
 }
 
+//Copy Constructor
 Book::Book(const Book& copy) {
     title = copy.title;
     author = copy.author;
@@ -92,9 +94,10 @@ int Book::printInfo() {
     int userSelection;
     string tempTitle, tempAuthor, tempGenre;
     tempTitle = title; tempAuthor = author, tempGenre = genre;
-    replace(tempTitle.begin(), tempTitle.end(), '_', ' ');
+    replace(tempTitle.begin(), tempTitle.end(), '_', ' '); //Next 3 lines replace underscores with spaces for sake of neatness
     replace(tempAuthor.begin(), tempAuthor.end(), '_', ' ');
     replace(tempGenre.begin(), tempGenre.end(), '_', ' ');
+    //Prints the information of the books
     cout << "______________________" << endl;
     cout << "|  Book Information  |" << endl;
     cout << "|--------------------|" << endl;
@@ -105,18 +108,19 @@ int Book::printInfo() {
     cout << " Number of Available Copies: " << numAvailable << "/" << numCopies << endl;
     cout << " If you want to read more about this book, you can find additional information at:" << endl;
     cout << " " << pageLink << endl << endl;
+    //Asks what they would like to do from here
     cout << "______________________________" << endl;
     cout << "| What would you like to do? |" << endl;
     cout << "|----------------------------|" << endl;
     cout << "| [1] Checkout the Book      |" << endl;
     cout << "| [2] Return to Main Menu    |" << endl;
     cout << "|____________________________|" << endl;
-    cout << "Selection: "; cin >> userSelection;
-    while(userSelection != 1 && userSelection != 2) {
+    cout << "Selection: "; cin >> userSelection; //User decides what they want to do
+    while(userSelection != 1 && userSelection != 2) { //Checks for Invalid input, and continually asks until valid input is given
         cout << "Invalid Selection please reenter selection" << endl;
         cout << "Selection: "; cin >> userSelection;
     }
-    if(userSelection == 1 && numAvailable == 0) {
+    if(userSelection == 1 && numAvailable == 0) { //Checks if they want to checkout a book but doesn't have enough copies
         cout << "Sorry, this book has no available copies. Please return at a later date." << endl;
         cout << "               We will now return you to the main menu.                 " << endl;
         return 2;
@@ -124,6 +128,7 @@ int Book::printInfo() {
     return userSelection;
 }
 
+//Operator Overload (primarily used for early testing)
 ostream& operator<<(ostream& out, Book& otherBook) {
     out << otherBook.getTitle()
         << " " << otherBook.getAuthor()

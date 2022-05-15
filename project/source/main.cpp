@@ -15,6 +15,9 @@
 #include "registereduser.h"
 using namespace std;
 
+//This is the primary function of the system. Used to keep the system running until the user exits
+//Input: N/A
+//Output/Return: Any that is output to console through other functions.
 void runSystem();
 
 //This function will bring up a login screen in console that will give three options: Continue as Guest, Login or Register
@@ -41,14 +44,43 @@ User loginScreenTwo(Database& libData);
 //Output/Return: if the user was found in the database, the function will return true if not it will return false
 bool verifyUserID(Database libData, string userID);
 
+//Function that prints the Main Menu for the user
+//Input: User name: The current user of the database. Mainly used to checked if they are an admin or not
+//Output/Return: A menu is printed to console
 void printMainMenu(User name);
 
+//Function that checks if the user has any currently checked out books
+//Input: Database libData: The library database, used to access the list of checked out books
+//       User& name: The current user of the database. Passed by reference to add any books they have checked out
+//                   to their personal list of checked out books
+//Output/Return: Any checked out books are added to the current users vector containing all their checked out books
 void checkForCheckedOutBooks(Database libData, User& name);
 
+//Function that searches the database to see if a book exists in the database
+//Input: Database libData: The library database, used to access list of library's books
+//       string title: The book title of the book we are looking for
+//Output/Return: If the book was found in the database, it returns that book
+//               If the book was not found in the database, it returns a defaultly constructed Book object
 Book searchForBook(Database libData, string title);
 
+//Function that does the whole process of a book search
+//Input: Database& libData: The library database, passed by reference just in case the user checks out the book they search for
+//       User& currUser: The current user of the database, passed by reference just in case they check out a book
+//Output/Return: Text is output to console going through the search for book process. Vectors in both the database
+//               and for the user are updated if a book is checked out
 void bookSearch(Database& libData, User& currUser);
+
+//Function that does the whole process of a book return
+//Input: Database& libData: The library database, passed by reference just in case the user checks out the book they search for
+//       User& currUser: The current user of the database, passed by reference just in case they check out a book
+//Output/Return: Text is output to console going through the search for book process. Vectors in both the database
+//               and for the user are updated if a book is checked out
 void bookReturn(Database& libData, User& currUser);
+
+//Function that prints out text when a user logs out from the system
+//Input: N/A
+//Output: Some basic text thanking the user for using the system is printed to console
+//        a boolean of value "true" is returned to indicate that the system has been exited
 bool logoutScreen();
 
 
@@ -63,11 +95,11 @@ void runSystem() {
     bool hasExited = false;
     int userSelection;
     User currUser = loginToDatabase(libData);
-    if(currUser.getStatus() == "N/A") {
+    if(currUser.getStatus() == "N/A") { //Checks if User chose to login or just immediately exit the system
         hasExited = true;
     }
     checkForCheckedOutBooks(libData, currUser);
-    while(hasExited == false) {
+    while(hasExited == false) { //Runs until the user decides to logout
         printMainMenu(currUser);
         cin >> userSelection;
         if(userSelection == 1) { //Search for Book
@@ -212,7 +244,7 @@ void printMainMenu(User name) {
     cout << "| [2] Search through Catalog       |" << endl;
     cout << "| [3] Return a Book                |" << endl;
     cout << "| [4] View Profile                 |" << endl;
-    if(name.getStatus() == "Administrator") {
+    if(name.getStatus() == "Administrator") { //Prints a specific way if you are an admin
     cout << "| [5] Add Book to Database         |" << endl;
     cout << "| [6] Remove Book from Database    |" << endl;
     cout << "| [7] Logout from System           |" << endl;
@@ -225,8 +257,8 @@ void printMainMenu(User name) {
 
 void checkForCheckedOutBooks(Database libData, User& name) {
     vector<CheckedBook> books = libData.getCheckedBooks();
-    for(int i = 0; i < books.size(); i++) {
-        if(books[i].getUserID() == name.getID()) {
+    for(int i = 0; i < books.size(); i++) { //Runs through all the books that are currently checked out
+        if(books[i].getUserID() == name.getID()) { //If a userID attached to checked out books matches the user, adds it to their list of checked out books
             name.gatherBook(books[i]);
         }
     }
@@ -234,16 +266,16 @@ void checkForCheckedOutBooks(Database libData, User& name) {
 
 Book searchForBook(Database libData, string title) {
     vector<Book> bookList = libData.getBooks();
-    for(int i = 0; i < bookList.size(); i++) {
-        string currBookTitle = bookList[i].getTitle();
-        replace(currBookTitle.begin(), currBookTitle.end(), '_', ' ');
-        transform(currBookTitle.begin(), currBookTitle.end(), currBookTitle.begin(), ::tolower);
-        if(title == currBookTitle) {
+    for(int i = 0; i < bookList.size(); i++) { //Runs for every book in the library database
+        string currBookTitle = bookList[i].getTitle(); //Grabs title of current book
+        replace(currBookTitle.begin(), currBookTitle.end(), '_', ' '); //Replaces underlines in string with spaces
+        transform(currBookTitle.begin(), currBookTitle.end(), currBookTitle.begin(), ::tolower); //Puts string into lowercase letters
+        if(title == currBookTitle) { //Checks if the searched title matches the title of the current book
             return bookList[i];
         }
     }
     Book fin;
-    return fin;
+    return fin; //If book is not found in database, returns default constructed Book object
 }
 
 void bookSearch(Database& libData, User& currUser) {
@@ -274,14 +306,14 @@ void bookSearch(Database& libData, User& currUser) {
 }
 
 void bookReturn(Database& libData, User& currUser) {
-    if(currUser.getStatus() == "Guest") {
+    if(currUser.getStatus() == "Guest") { //Checks if the user is a guest
         cout << "As a Guest, you do not have access to checking out books." << endl;
         cout << "          Thus, you have not need to return any.         " << endl;
     } else {
         Book retBook = currUser.returnBook();
-        if(retBook.getTitle() == "None") {
+        if(retBook.getTitle() == "None") { //Checks if user decided either to not return a book or doesn't have any books to return
             cout << "You have decided not to return a book. Returning to Main Menu." << endl;
-        } else {
+        } else { //They have a book they wanted to return
             libData.updateBookInfo(2, retBook, currUser);
         }
     }
