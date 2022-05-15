@@ -118,7 +118,11 @@ void runSystem() {
             cout << "|__________________________________|" << endl;
             hasExited = true;
         } else if (userSelection == 6 && currUser.getStatus() == "Administrator") { //Remove Book from Database (As Admin)
-            
+            Administrator tempAdmin(currUser.getID(), currUser.getPass());
+            Book newBook = tempAdmin.removeBook(libData.getBooks());
+            if(newBook.getTitle() != "None") {
+                libData.updateBookInfo(4, newBook, currUser);
+            }
         } else if (userSelection == 7 && currUser.getStatus() == "Administrator") { //Logout (if Admin)
             cout << "____________________________________" << endl;
             cout << "|Thank you for coming to NSALibrary|" << endl;

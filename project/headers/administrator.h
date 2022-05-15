@@ -22,7 +22,7 @@ class Administrator : public User {
         //Allows administrator to add a new book to the library database
         //Input: N/A
         //Output/Return: oldBook is removed to the database's list of books
-        Book removeBook();
+        Book removeBook(vector<Book> books);
 
 };
 

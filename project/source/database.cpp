@@ -197,6 +197,9 @@ void Database::updateBookInfo(int num, Book name, User id) {
         for(int i = 0; i < books.size(); i++) { //Runs through every book in library until identical is found
             if(books[i].getTitle() == bookName) { //Check if current book is identical of the input book
                 books[i].updateNumCopies(2);
+                if(books[i].getNumCopies() < 1) {
+                    books.erase(books.begin() + i);
+                }
                 break;
             }
         }

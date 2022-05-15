@@ -32,7 +32,32 @@ Book Administrator::addBook() {
 }
 
 
-// Book Administrator::removeBook() {
-    
-// }
+Book Administrator::removeBook(vector<Book> books) {
+    string bookTitle, bookAuthor;
+    int pages, userResponse;
+    cout << "__________________________________________" << endl;
+    cout << "| Please Input the Following Information |" << endl;
+    cout << "|________________________________________|" << endl;
+    cout << " Title of the Book: "; cin.ignore(); getline(cin, bookTitle);
+    cout << " Author of the Book: "; getline(cin, bookAuthor);
+    cout << " Are you sure that you want to remove" << endl;
+    cout << " " << bookTitle << endl;
+    cout << " By " << bookAuthor << "?" << endl;
+    cout << " [1] Yes " << endl;
+    cout << " [2] No " << endl;
+    cout << "Response: "; cin >> userResponse;
+    replace(bookTitle.begin(), bookTitle.end(), ' ', '_');
+    replace(bookAuthor.begin(), bookAuthor.end(), ' ', '_');
+    if(userResponse == 1) { //They confirm to remove the book
+        for(int i = 0; i < books.size(); i++) {
+            if(books[i].getTitle() == bookTitle && books[i].getAuthor() == bookAuthor) {
+                return books[i];
+            }
+        }
+        cout << "The book you are trying to remove does not exist in our library." << endl;
+        cout << "                      Returning to Main Menu                    " << endl;
+    }
+    Book finBook;
+    return finBook;
+}
 
