@@ -83,6 +83,12 @@ void bookReturn(Database& libData, User& currUser);
 //        a boolean of value "true" is returned to indicate that the system has been exited
 bool logoutScreen();
 
+//Function that allows the user to view the entire libraries catalog
+//Input: Database& libData: The library database, passed by reference just in case the user checks out the book they search for
+//       User& currUser: The current user of the database, passed by reference just in case they check out a book
+//Output/Return: Text is output to console going through the catalog process. Vectors in both the database
+//               and for the user are updated if a book is checked out
+void viewCatalog(Database& libData, User& currUser);
 
 
 
@@ -105,7 +111,7 @@ void runSystem() {
         if(userSelection == 1) { //Search for Book
             bookSearch(libData, currUser);
         } else if (userSelection == 2) { //Search through Catalog
-
+            viewCatalog(libData, currUser);
         } else if (userSelection == 3) { //Return a Book
             bookReturn(libData, currUser);
         } else if (userSelection == 4) { //View Profile
@@ -325,4 +331,66 @@ bool logoutScreen() {
     cout << "|    We hope you'll return soon!   |" << endl;
     cout << "|__________________________________|" << endl;
     return true;
+}
+
+void viewCatalog(Database& libData, User& currUser) {
+    vector<Book> books = libData.getBooks();
+    int numPages = ((books.size()) / 10) + 1; //Maximum number of pages in the catalog
+    int currPage = 1, minIndex = 0, booksPerPage, userSelection;
+    bool hasExited = false;
+    while(hasExited == false) { //Runs until the user returns to the main menu
+        books = libData.getBooks(); //Grabs an updated list of the books in the library at the beginning of each run
+        cout << "____________________________" << endl;
+        cout << "|  NSA2000 Library Catalog |" << endl;
+        cout << "|--------------------------|" << endl;
+        if(currPage < numPages) { //Checks if this is the last page
+            booksPerPage = 10;
+        } else { //This is the last page
+            booksPerPage = (books.size() % 10);
+        }
+        for(int i = 0; i < booksPerPage; i++) { //Prints all the books on the current page
+            string currBook = books[minIndex + i].getTitle();
+            replace(currBook.begin(), currBook.end(), '_', ' ');
+            cout << "| [" << (i+1) << "] " << currBook << endl;
+        }
+        //Next 3 lines print the options that don't include books
+        cout << "| [" << (booksPerPage+1) << "] Next Page" << endl;
+        cout << "| [" << (booksPerPage+2) << "] Previous Page" << endl;
+        cout << "| [" << (booksPerPage+3) << "] Return to Main Menu" << endl;
+        cout << "| Please select one of the options above" << endl;
+        cout << "| Selection: "; cin >> userSelection; //Ask for user input
+        if(userSelection > 0 && userSelection <= booksPerPage) { //User Selected one of the 10 books listed
+            Book currBook = books[minIndex + (userSelection - 1)];
+            int choice = currBook.printInfo();
+            if(choice == 1 && currUser.getStatus() == "Guest") { //User does not have access to checking out due to being a Guest
+                cout << "As a guest, you do not have access to checking out material." << endl;
+                cout << "Please reopen the system and create an account if you wish" << endl;
+                cout << "            Check out material in the library.            " << endl;
+            } else if (choice == 1) { //Checking out the book
+                currUser.checkOutBook(currBook);
+                CheckedBook newBook(currUser.getID(), currBook);
+                libData.addCheckedBook(newBook);
+                libData.updateBookInfo(1, currBook, currUser);
+            }
+        } else if(userSelection == booksPerPage + 1) { //User Decided to go to next page
+            if(currPage == numPages) { //Check if user is on last page
+                cout << "This is the last page. As such you can not go to the next page" << endl;
+            } else { 
+                minIndex += 10; //Finds first book of next page
+                currPage++;
+            }
+        } else if(userSelection == booksPerPage + 2) {  //User decided to go to previous page
+            if(currPage == 1) { //Check if user is on first page
+                cout << "This is the first page. As such you can not go to the previous page" << endl;
+            } else {
+                minIndex -= 10; //Finds first book of previous page
+                currPage--;
+            }
+        } else if(userSelection == booksPerPage + 3) { //User decided to return to main menu
+            cout << "Returning to Main Menu" << endl;
+            hasExited = true;
+        } else { //Invalid input
+            cout << "You have given an invalid input" << endl;
+        }
+    }
 }
