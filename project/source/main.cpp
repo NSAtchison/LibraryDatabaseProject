@@ -91,6 +91,9 @@ bool logoutScreen();
 //               and for the user are updated if a book is checked out
 void viewCatalog(Database& libData, User& currUser);
 
+//Function that updates the database with all newly input information once the system is close
+//Input: Database libData: The library database. Used to access the vectors whose data is being output
+//Output/Return: Four output files are written to hold all the information that the database holds
 void updateLists(Database libData);
 
 int main() {
@@ -199,7 +202,10 @@ User loginScreenTwo(Database& libData) {
     cout << "| [2] No                         |" << endl;
     cout << "|________________________________|" << endl;
     cout << "Selection: "; cin >> userSelection; //Must tell if they are an admin or not
-
+    while(userSelection != 1 && userSelection != 2) {
+        cout << "Invalid input. Please reinput selection." << endl;
+        cout << "Selection: "; cin >> userSelection;
+    }
     cout << "Please enter your userID: "; cin >> tempID;
     foundUser = verifyUserID(libData, tempID);
     while(foundUser == false && tempID != "exit") { //Run until they decide to exit the login process or enter in a valid userID

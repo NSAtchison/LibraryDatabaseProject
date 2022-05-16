@@ -1,10 +1,10 @@
-Knight_Owl Christopher_Denise Kids https://www.goodreads.com/book/show/57007688-knight-owl 48 1 1
+Knight_Owl Christopher_Denise Kids https://www.goodreads.com/book/show/57007688-knight-owl 48 0 1
 Book_Lovers Emily_Henry Romance https://www.goodreads.com/book/show/58690308-book-lovers 400 2 3
 Sleepless Romy_Hausmann Thriller https://www.goodreads.com/book/show/56614648-sleepless 336 0 1
 Percy_Jackson_and_the_Lightning_Thief Rick_Riordan Fantasy https://www.goodreads.com/book/show/28187.The_Lightning_Thief 377 1 1
 Percy_Jackson_and_the_Sea_of_Monsters Rick_Riordan Fantasy https://www.goodreads.com/book/show/28186.The_Sea_of_Monsters 279 1 1
 Percy_Jackson_and_the_Titan's_Curse Rick_Riordan Fantasy https://www.goodreads.com/book/show/561456.The_Titan_s_Curse 320 1 1
-Percy_Jackson_and_the_Battle_of_the_Labyrinth Rick_Riordan Fantasy https://www.goodreads.com/book/show/2120932.The_Battle_of_the_Labyrinth 361 1 1
+Percy_Jackson_and_the_Battle_of_the_Labyrinth Rick_Riordan Fantasy https://www.goodreads.com/book/show/2120932.The_Battle_of_the_Labyrinth 361 0 1
 Percy_Jackson_and_the_Last_Olympian Rick_Riordan Fantasy https://www.goodreads.com/book/show/4556058-the-last-olympian 381 1 1
 The_Hunt_for_Red_October Tom_Clancy Fiction https://www.goodreads.com/book/show/19691.The_Hunt_for_Red_October 432 1 1
 The_Princess_Bride William_Goldman Fantasy https://www.goodreads.com/book/show/21787.The_Princess_Bride 456 1 1
