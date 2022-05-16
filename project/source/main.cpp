@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <algorithm> //Used for replace function src: https://www.cplusplus.com/reference/algorithm/replace/
+#include <fstream>
 #include "user.h"
 #include "administrator.h"
 #include "book.h"
@@ -90,7 +91,7 @@ bool logoutScreen();
 //               and for the user are updated if a book is checked out
 void viewCatalog(Database& libData, User& currUser);
 
-
+void updateLists(Database libData);
 
 int main() {
     runSystem();
@@ -134,7 +135,7 @@ void runSystem() {
             cout << "You have given an invalid input. Returning to Main Menu" << endl;
         }
     }
-    //Write database information to files
+    updateLists(libData);
 }
 
 
@@ -393,4 +394,48 @@ void viewCatalog(Database& libData, User& currUser) {
             cout << "You have given an invalid input" << endl;
         }
     }
+}
+
+void updateLists(Database libData) {
+    fstream bookOutput("book_list.txt", ios::out);
+    fstream userOutput("registered_user_list.txt", ios::out);
+    fstream adminOutput("admin_list.txt", ios::out);
+    fstream checkedBookOutput("checked_out_list.txt", ios::out);
+    vector<Book> finBooks = libData.getBooks();
+    vector<RegisteredUser> finUsers = libData.getUsers();
+    vector<Administrator> finAdmins = libData.getAdmins();
+    vector<CheckedBook> finCheckedBooks = libData.getCheckedBooks();
+    for(int i = 0; i < finBooks.size(); i++) {
+        Book currBook = finBooks[i];
+        bookOutput << currBook.getTitle() << " " 
+                   << currBook.getAuthor() << " " 
+                   << currBook.getGenre() << " "
+                   << currBook.getLink() << " "
+                   << currBook.getNumPages() << " "
+                   << currBook.getNumAvailabe() << " "
+                   << currBook.getNumCopies() << endl;
+    }
+
+    for(int i = 0; i < finUsers.size(); i++) {
+        RegisteredUser currUser = finUsers[i];
+        userOutput << currUser.getID() << " " << currUser.getPass() << endl;
+    }
+
+    for(int i = 0; i < finAdmins.size(); i++) {
+        Administrator currAdmin = finAdmins[i];
+        adminOutput << currAdmin.getID() << " " << currAdmin.getPass() << endl;
+    }
+
+    for(int i = 0; i < finCheckedBooks.size(); i++) {
+        CheckedBook currBook = finCheckedBooks[i];
+        checkedBookOutput << currBook.getUserID() << " "
+                   << currBook.getTitle() << " " 
+                   << currBook.getAuthor() << " " 
+                   << currBook.getGenre() << " "
+                   << currBook.getLink() << " "
+                   << currBook.getNumPages() << " "
+                   << currBook.getNumAvailabe() << " "
+                   << currBook.getNumCopies() << endl;
+    }
+
 }
