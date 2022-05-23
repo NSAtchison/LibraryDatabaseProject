@@ -2,6 +2,11 @@
 // May 20, 2022
 // CS-172-1
 // License: Copyright 2022 Nathan Atchison
+
+// Good job! The code works well and it provides a convinient and smooth database of books.
+// Qian commented
+
+
 #include <iostream>
 #include <string>
 #include <vector>
